@@ -13,3 +13,4 @@ python3 preprocessing_accessibility.py
 python3 preprocessing_step2.py 
 python3 merge_omics.py
 
+python3 tf_each_attn.py ./final_preprocessing/ "./results/"
