@@ -70,5 +70,38 @@ After running the moSCminer, **results** directory will be created and you will 
 * /results/accessibility_importance_rank.csv
   - Ranking for each chromatin accessibility based on the learned relative importance values from moSCminer
 
+## moSCminer (omics-extensible version)
+In our paper, the moSCminer was tested using single-cell multi-omics datasets, which comprised two or three distinct omics profiles. However, it is essential to note that our proposed method is not limited to only three omics types. moSCminer allows its application to multi-omics datasets with varying numbers of omics data. This flexibility is achieved by omics-level attention, by employing a self-attention module for each omics dataset, which generates new representations based on the learned relative importance of features. Subsequently, these features are concatenated and used as input for cell subtype classification.
+
+To use the extensible version of moSCminer,
+1. Edit the top line 4-6 of **moSCminer_extensible_ver.py** with your paramters
+```
+vi moSCminer_extensible_ver.py
+
+'''
+num_omics = 3  (Number of your omics)
+dirname = "./example_dataset/" (directory path having your input files)
+resDir = "./results/"  (directory path to save results)
+'''
+```
+
+2. Prepare the input files following the below rules :
+* train dataset filenames should be as following "final_1_train.csv", "final_2_train.csv", "final_3_train.csv" ...
+* test dataset filenames should be as following "final_1_test.csv", "final_2_test.csv", "final_3_test.csv" ...
+* label files for train and test dataset should be "final_celltype_onehot_train.csv" and "final_celltype_onehot_test.csv", respectively.
+* Dataset files 
+  -  Should be one matrix formatted *.csv file with raw read count values.
+  -  Row: Sample, Column: Feature
+* Label files
+  -  Should be one-hot encoded matrix
+  -  Row: Sample, Column: Cell subtype
+ 
+3. Run the below command
+```
+python moSCminer_extensible_ver.py
+```
+
+All the results will be saved in the *resDir* path you specified.
+
 ## Contact
 If you have any questions or problems, please contact to **joungmin AT vt.edu**.
